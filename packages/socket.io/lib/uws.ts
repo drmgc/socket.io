@@ -49,6 +49,8 @@ export function patchAdapter(app /* : TemplatedApp */) {
   };
 
   Adapter.prototype.broadcast = function (packet, opts) {
+    if (opts.rooms === undefined) return;
+
     const useFastPublish = opts.rooms.size <= 1 && opts.except!.size === 0;
     if (!useFastPublish) {
       broadcast.call(this, packet, opts);

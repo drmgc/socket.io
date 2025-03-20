@@ -19,7 +19,7 @@ export class BroadcastOperator<EmitEvents extends EventsMap, SocketData>
 {
   constructor(
     private readonly adapter: Adapter,
-    private readonly rooms: Set<Room> = new Set<Room>(),
+    private readonly rooms: Set<Room> | undefined = undefined,
     private readonly exceptRooms: Set<Room> = new Set<Room>(),
     private readonly flags: BroadcastFlags & {
       expectSingleResponse?: boolean;
@@ -329,7 +329,7 @@ export class BroadcastOperator<EmitEvents extends EventsMap, SocketData>
         "No adapter for this namespace, are you trying to get the list of clients of a dynamic namespace?",
       );
     }
-    return this.adapter.sockets(this.rooms);
+    return this.adapter.sockets(this.rooms ?? new Set());
   }
 
   /**

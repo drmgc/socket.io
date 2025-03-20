@@ -29,7 +29,7 @@ export interface BroadcastFlags {
 }
 
 export interface BroadcastOptions {
-  rooms: Set<Room>;
+  rooms?: Set<Room>;
   except?: Set<Room>;
   flags?: BroadcastFlags;
 }
@@ -334,7 +334,7 @@ export class Adapter extends EventEmitter {
     const rooms = opts.rooms;
     const except = this.computeExceptSids(opts.except);
 
-    if (rooms.size) {
+    if (rooms !== undefined) {
       const ids = new Set();
       for (const room of rooms) {
         if (!this.rooms.has(room)) continue;
